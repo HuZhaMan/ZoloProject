@@ -15,7 +15,13 @@ cmdline.execute('scrapy crawl trends'.split(' '))
 
 # 需要一个存储过程；
 sql_string = '''
+    select td.city,
+    rd.province
 
+    from trend td
+    LEFT JOIN realtor_data rd on td.city= rd.city
 '''
+# 需要一个city去重和身份的表；
+#查到数据之后然后还需要算一下
 
 
