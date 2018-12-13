@@ -13,7 +13,7 @@ from tools.process_city_list import ProcessCityList
 class TrendsSpider(scrapy.Spider):
     name = 'trends'
     allowed_domains = ['zolo.ca']
-    start_urls = ['https://www.zolo.ca/toronto-real-estate/trends']
+    start_urls = ['https://www.zolo.ca/Toronto-real-estate/trends']
 
     def parse(self, response):
         CITY_LIST = pd.read_csv(city_list_file_path)
