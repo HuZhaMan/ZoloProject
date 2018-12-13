@@ -13,9 +13,13 @@ class ProcessCityList():
         data = data.dropna()
         data = list(data)
         data = pd.DataFrame(data, columns=['city'])
+
+        # 其实url是从Toronto开始的；
         data =data[data.city !='Toronto']
 
-        data['city'] = data['city'].str.lower()
+        # 这里不需要小写也可以做到
+        # data['city'] = data['city'].str.lower()
+
         data['city'] = ['_'.join(x.split(' ')) for x in data['city']]
         data['city'] = [x.replace('-','_') for x in data['city']]
         # data_list_new = list(data['city'])

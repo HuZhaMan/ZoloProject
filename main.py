@@ -13,4 +13,9 @@ import os
 # cmdline.execute('scrapy crawl crawl_based_on_province'.split(' '))
 cmdline.execute('scrapy crawl trends'.split(' '))
 
+# 需要一个存储过程；
+sql_string = '''
+
+'''
+
 

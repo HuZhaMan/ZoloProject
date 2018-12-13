@@ -73,7 +73,7 @@ RANDOM_UA_TYPE = "random"
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
    # 'Zolo.pipelines.ZoloPipeline': 300,
-    'Zolo.pipelines.MarketStatsPipeline':300,
+    'Zolo.pipelines.MarketStatsPipeline1':300,
    #  'Zolo.pipelines.IndexHousePipeline':300,
    #  'Zolo.pipelines.BasedOnProvincePipeline':300,
 }
@@ -113,3 +113,16 @@ MYSQL_PASSWORD = '123456'
 
 # city list file path
 city_list_file_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + '/tools/SourceData.csv'
+
+
+# ssh connect database
+is_ssh = True
+ssh_host = "138.197.138.231"
+ssh_port = 22
+ssh_username = "root"
+ssh_password = "saninco123#@!"
+database = "saninco_realtor_db"
+user = "dealtap"
+password = "dealtap"
+host = "localhost"
+port = 5432

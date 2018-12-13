@@ -84,7 +84,7 @@ class TrendsSpider(scrapy.Spider):
         market_stats_item['new_listings'] = new_listings
         market_stats_item['homes_sold'] = homes_sold
         market_stats_item['average_days_on_market'] = average_days_on_market
-        market_stats_item['city'] = city
+        market_stats_item['city'] = ' '.join(city.split('-'))
         market_stats_item['selling_to_listing_price_ratio'] = selling_to_listing_price_ratio_value
         yield market_stats_item
 
