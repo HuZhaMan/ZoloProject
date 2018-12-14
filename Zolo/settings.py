@@ -2,6 +2,8 @@
 
 import os
 
+from tools.get_sql_con import get_conn
+
 # Scrapy settings for Zolo project
 #
 # For simplicity, this file contains only settings considered important or
@@ -37,7 +39,7 @@ ROBOTSTXT_OBEY = False
 # Disable cookies (enabled by default)
 COOKIES_ENABLED = False
 AUTOTHROTTLE_ENABLED =True
-DOWNLOAD_DELAY = 5
+# DOWNLOAD_DELAY = 5
 
 # Disable Telnet Console (enabled by default)
 #TELNETCONSOLE_ENABLED = False
@@ -126,3 +128,44 @@ user = "dealtap"
 password = "dealtap"
 host = "localhost"
 port = 5432
+
+# 数据库连接对象和ssh连接服务：
+conn, server = get_conn(True)
+
+sql_string_truncate_trend = '''
+        TRUNCATE trend
+'''
+
+estate_expect_deal_price_params_data_test = '''
+        INSERT INTO 
+        estate_expect_deal_price_params_data_test(city,"provinceCode","citySpLp",dom,"listingCount","soldCount","createdDate")
+        (select 
+        td.city as city,
+        nt.province as code,
+        td.selling_to_listing_price_ratio AS "citySpLp",
+        
+        
+        td.average_days_on_market AS dom,
+        
+        td.new_listings AS "listingCount",
+        td.homes_sold AS "soldCount",
+        td."createdDate"
+        
+        
+        
+        from trend td
+        LEFT JOIN 
+        (
+        SELECT *
+        FROM province_city_map
+        ) nt
+        ON td.city = nt.city)
+'''
+
+insert_avg_province = '''
+
+'''
+
+insert_avg_country = '''
+
+'''

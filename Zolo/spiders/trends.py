@@ -1,13 +1,16 @@
 # -*- coding: utf-8 -*-
-import os
+import time
+
 import re
 import scrapy
+
 
 import pandas as pd
 
 from Zolo.items import MarketSTATSItem
 from Zolo.settings import city_list_file_path
 from tools.process_city_list import ProcessCityList
+from tools.process_city import realize_capitalize
 
 
 class TrendsSpider(scrapy.Spider):
@@ -80,12 +83,13 @@ class TrendsSpider(scrapy.Spider):
 
         # 保存到item中
         market_stats_item = MarketSTATSItem()
-        # 通过mata接受数据
         market_stats_item['new_listings'] = new_listings
         market_stats_item['homes_sold'] = homes_sold
         market_stats_item['average_days_on_market'] = average_days_on_market
-        market_stats_item['city'] = ' '.join(city.split('-'))
-        market_stats_item['selling_to_listing_price_ratio'] = selling_to_listing_price_ratio_value
+        city = ''.join(list(map(realize_capitalize,city.split(' '))))
+        market_stats_item['city'] = ' '.join(list(map(realize_capitalize,city.split('-'))))
+
+        market_stats_item['selling_to_listing_price_ratio'] = int(selling_to_listing_price_ratio_value)/100
         yield market_stats_item
 
 
