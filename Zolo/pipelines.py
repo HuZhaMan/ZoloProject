@@ -62,6 +62,35 @@ class MarketStatsPipeline1(object):
         # 向estate_expect_deal_price_params_data_test 插入基本的数据
         cursor.execute(settings.estate_expect_deal_price_params_data_test)
         settings.conn.commit()
+
+        sql_1 = '''
+            SELECT AVG(CAST("citySpLp" AS FLOAT)
+            FROM estate_expect_deal_price_params_data_test 
+            where "provinceCode"='ON'
+        '''
+        sql_2 = '''
+            SELECT "provinceCode" FROM estate_expect_deal_price_params_data_test
+        '''
+        sql_3 = '''
+            INSERT INTO estate_expect_deal_price_params_data_test("provinceCode","provinceSpLp","soldCount",dom,"createdDate")
+            VALUES(1,2,3,4,now())
+        '''
+        sql_4 = '''
+            SELECT AVG(CAST(dom AS FLOAT))
+            FROM estate_expect_deal_price_params_data_test 
+            where "provinceCode"='ON'
+        '''
+        sql_5 = '''
+            SELECT AVG(CAST("soldCount" AS FLOAT))
+            FROM estate_expect_deal_price_params_data_test 
+            where "provinceCode"='ON'
+        '''
+        sql_6 = '''
+            SELECT AVG(CAST("provinceSpLp" AS FLOAT))
+            FROM estate_expect_deal_price_params_data
+            where city=NULL
+            AND "provinceCode"!=NULL
+        '''
         # 向estate_expect_deal_price_params_data_test 插入省份和国家的平均数据
         settings.server.stop()
         print('------------------------------------------------------finish')
