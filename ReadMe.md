@@ -21,7 +21,34 @@
     2：关于其他sql语句则在ZoloProject/Zolo/pipelines的close_spider函数中
         如果你想修改最后的省份插入和国家插入语句，只需替换到相应的字符串即可
     
-    
+ubuntu 16.04的环境配置方法
+安装：
+
+1、add-apt-repository ppa:jonathonf/python-3.6
+
+2、apt-get update
+
+3、apt-get install python3.6
+
+配置只输入python3时就默认使用3.6版本：
+
+1、update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.5 1
+
+2、update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.6 2
+
+3、update-alternatives --config python3
+
+4、python3 -V
+
+设置pip:
+
+1、apt-get install python3-pip　　　　# Python3
+
+如果出现：ModuleNotFoundError: No module named 'gdbm' 这个错误，执行：
+sudo apt-get install python3.6-gdbm
+
+可以直接通过：git clone https://github.com/LIDD-UP/ZoloProject 
+将项目克隆到本地
     
     
 
