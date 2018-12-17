@@ -12,6 +12,15 @@ def realize_capitalize(source_str):
     return source_str.capitalize()
 
 
+def generate_province_city_map_file(data):
+    data = data[['City', 'Province']]
+    data['City'] = [x.replace('-', ' ') for x in data['City']]
+    data['City'] = ['_'.join(x.split(' ')) for x in data['City']]
+    data['City'] = ['_'.join(list(map(realize_capitalize, x.split('_')))) for x in data['City']]
+    data['City'] = [' '.join(list(map(realize_capitalize, x.split('_')))) for x in data['City']]
+    data.to_csv('./province_city_map.csv', index=False)
+
+
 class ProcessCityList():
     def process_city_list(self,data):
         data = data['City']
@@ -53,12 +62,8 @@ if __name__ == '__main__':
     # new_data.to_csv('./city.csv',index=False)
     # print(new_data.head())
     # print(new_data.shape)
-    data = data[['City','Province']]
-    data['City'] = [x.replace('-', ' ') for x in data['City']]
-    data['City'] = ['_'.join(x.split(' ')) for x in data['City']]
-    data['City'] = ['_'.join(list(map(realize_capitalize, x.split('_')))) for x in data['City']]
-    data['City'] = [' '.join(list(map(realize_capitalize, x.split('_')))) for x in data['City']]
-    data.to_csv('./province_city_map.csv',index=False)
+    generate_province_city_map_file(data)
+
 
 
 

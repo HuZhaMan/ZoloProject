@@ -10,7 +10,7 @@ import pandas as pd
 from Zolo.items import MarketSTATSItem
 from Zolo.settings import city_list_file_path
 from tools.process_city_list import ProcessCityList
-from tools.process_city import realize_capitalize
+from tools.process_city_list import realize_capitalize
 
 
 class TrendsSpider(scrapy.Spider):
@@ -19,6 +19,7 @@ class TrendsSpider(scrapy.Spider):
     start_urls = ['https://www.zolo.ca/Toronto-real-estate/trends']
 
     def parse(self, response):
+        # 处理数据
         CITY_LIST = pd.read_csv(city_list_file_path)
         pc = ProcessCityList()
         CITY_LIST = pc.process_city_list(CITY_LIST)
