@@ -10,7 +10,7 @@
 
 运行项目
     1：切换到项目根目录ZoloProject
-    键入命令pip install -r requirement.txt
+    键入命令pip3 install -r requirement.txt
     2: python main.py 
     
     
@@ -49,6 +49,10 @@ sudo apt-get install python3.6-gdbm
 
 可以直接通过：git clone https://github.com/LIDD-UP/ZoloProject 
 将项目克隆到本地
+
+通过pip3 install -r requirement.txt可能出现的问题：
+1：    distutils.errors.DistutilsError: Setup script exited with error: command 'x86_64-linux-gnu-gcc' failed with exit status 1
+解决办法：sudo apt-get install python3.6-dev
     
     
 
