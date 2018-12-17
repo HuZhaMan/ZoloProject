@@ -53,6 +53,6 @@ sudo apt-get install python3.6-gdbm
 通过pip3 install -r requirement.txt可能出现的问题：
 1：    distutils.errors.DistutilsError: Setup script exited with error: command 'x86_64-linux-gnu-gcc' failed with exit status 1
 解决办法：sudo apt-get install python3.6-dev
-    
+还没有解决就看这篇blog：https://stackoverflow.com/questions/26053982/setup-script-exited-with-error-command-x86-64-linux-gnu-gcc-failed-with-exit
     
 
