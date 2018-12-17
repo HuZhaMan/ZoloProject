@@ -81,7 +81,7 @@ class MarketStatsPipeline1(object):
         conn.commit()
         province_code_set = set(province_code_list)
         for code in province_code_set:
-            print(code)
+            # print(code)
             insert_province_sql = '''
             INSERT INTO estate_expect_deal_price_params_data_test("provinceCode","provinceSpLp","listingCount","soldCount",dom,"createdDate")
             (
@@ -100,7 +100,7 @@ class MarketStatsPipeline1(object):
             AND "createdDate"=date(now())
             AND "provinceCode"='{1}')
             '''.format(code, code)
-            print(insert_province_sql)
+            # print(insert_province_sql)
             cursor.execute(insert_province_sql)
             conn.commit()
 
