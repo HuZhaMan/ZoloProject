@@ -132,40 +132,45 @@ port = 5432
 # 数据库连接对象和ssh连接服务：
 conn, server = get_conn(True)
 
+# 再爬虫开始之前将trend表置空
 sql_string_truncate_trend = '''
         TRUNCATE trend
 '''
-
-estate_expect_deal_price_params_data_test = '''
-        INSERT INTO 
-        estate_expect_deal_price_params_data_test(city,"provinceCode","citySpLp",dom,"listingCount","soldCount","createdDate")
-        (select 
-        td.city as city,
-        nt.province as code,
-        td.selling_to_listing_price_ratio AS "citySpLp",
-        
-        
-        td.average_days_on_market AS dom,
-        
-        td.new_listings AS "listingCount",
-        td.homes_sold AS "soldCount",
-        td."createdDate"
-        
-        
-        
-        from trend td
-        LEFT JOIN 
-        (
-        SELECT *
-        FROM province_city_map
-        ) nt
-        ON td.city = nt.city)
+# 向estate_expect_deal_price_params_data_test 插入基本数据
+estate_expect_deal_price_params_data_test_insert_base = '''
+    INSERT INTO 
+    estate_expect_deal_price_params_data_test(city,"provinceCode","citySpLp","provinceSpLp",dom,"listingCount","soldCount","createdDate","floatingValue")
+    (select 
+    td.city as city,
+    nt.province as "provinceCode",
+    td.selling_to_listing_price_ratio AS "citySpLp",
+    td.selling_to_listing_price_ratio AS "provinceSpLp",
+    
+    
+    td.average_days_on_market AS dom,
+    
+    td.new_listings AS "listingCount",
+    td.homes_sold AS "soldCount",
+    td."createdDate",
+    2
+    
+    from trend td
+    LEFT JOIN 
+    (
+    SELECT *
+    FROM province_city_map
+    ) nt
+    ON td.city = nt.city
+    ORDER BY "provinceCode"
+    )
+'''
+# 查询出privinceCode，作为循环
+get_province_code = '''
+    SELECT "provinceCode"
+    FROM estate_expect_deal_price_params_data_test
+    where
+    "createdDate"=date(now())
+    AND city!=''
+    AND city IS NOT NULL
 '''
 
-insert_avg_province = '''
-
-'''
-
-insert_avg_country = '''
-
-'''

@@ -9,14 +9,14 @@ from Zolo import settings
 
 
 def main():
-    # 需要一个存储过程；
 
+    # 将trend表删除
     cursor = settings.conn.cursor()
     cursor.execute(settings.sql_string_truncate_trend)
     settings.conn.commit()
 
     cmdline.execute('scrapy crawl trends'.split(' '))
-    print('------------------------------------------------------finish')
+    print('------------------------------------------------------1111')
 
 
 if __name__ == '__main__':
