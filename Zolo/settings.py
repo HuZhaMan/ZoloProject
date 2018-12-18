@@ -110,8 +110,8 @@ MYSQL_DBNAME = 'zolo'
 MYSQL_USER = 'root'
 MYSQL_PASSWORD = '123456'
 
-# 日子输出：
-# LOG_FILE="log.txt"
+# 日志输出：
+LOG_FILE="log.txt"
 
 # city list file path
 city_list_file_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + '/tools/SourceData.csv'
