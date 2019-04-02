@@ -2,7 +2,6 @@
 
 import os
 
-from tools.get_sql_con import get_conn
 
 # Scrapy settings for Zolo project
 #
@@ -114,7 +113,7 @@ MYSQL_PASSWORD = '123456'
 LOG_FILE="log.txt"
 
 # city list file path
-city_list_file_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + '/tools/SourceData.csv'
+city_list_file_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + '/tools/DataAfterProcess.csv'
 
 
 # ssh connect database
@@ -129,13 +128,18 @@ password = "dealtap"
 host = "localhost"
 port = 5432
 
+import  pandas as pd
+# 处理数据
+CITY_LIST = list(pd.read_csv(city_list_file_path)['city'])
+
+
+
+
+
 # 数据库连接对象和ssh连接服务：
-conn, server = get_conn(True)
 
 # 再爬虫开始之前将trend表置空
-sql_string_truncate_trend = '''
-        TRUNCATE trend
-'''
+
 # 向estate_expect_deal_price_params_data_test 插入基本数据
 estate_expect_deal_price_params_data_test_insert_base = '''
     INSERT INTO 

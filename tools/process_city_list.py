@@ -47,22 +47,23 @@ class ProcessCityList():
         data_list_new = [x for x in data['city'] if len(re.findall(r'\W', x)) == 0]
         print('data_list_new',data_list_new)
         data_list_new = [x.replace('_', '-') for x in data_list_new]
+        data_list_new = ['https://www.zolo.ca/{}-real-estate/trends'.format(x) for x in data_list_new]
 
         new_data = pd.DataFrame(data_list_new,columns=['city'])
 
-
-        return new_data
+        new_data.to_csv('./DataAfterProcess.csv',index=False)
+        # return new_data
 
 
 if __name__ == '__main__':
     data = pd.read_csv('./SourceData.csv')
     # print(data.shape)
-    # pcl = ProcessCityList()
-    # new_data = pcl.process_city_list(data)
+    pcl = ProcessCityList()
+    new_data = pcl.process_city_list(data)
     # new_data.to_csv('./city.csv',index=False)
     # print(new_data.head())
     # print(new_data.shape)
-    generate_province_city_map_file(data)
+    # ProcessCityList(data)
 
 
 

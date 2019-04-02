@@ -5,24 +5,18 @@ import re
 import scrapy
 
 
-import pandas as pd
-
 from Zolo.items import MarketSTATSItem
-from Zolo.settings import city_list_file_path
-from tools.process_city_list import ProcessCityList
+from Zolo.settings import CITY_LIST
 from tools.process_city_list import realize_capitalize
 
 
 class TrendsSpider(scrapy.Spider):
     name = 'trends'
     allowed_domains = ['zolo.ca']
-    start_urls = ['https://www.zolo.ca/Toronto-real-estate/trends']
+    start_urls = [url for url in CITY_LIST]
 
     def parse(self, response):
-        # 处理数据
-        CITY_LIST = pd.read_csv(city_list_file_path)
-        pc = ProcessCityList()
-        CITY_LIST = pc.process_city_list(CITY_LIST)
+
 
         # 对数据的解析：获取
 
@@ -97,18 +91,6 @@ class TrendsSpider(scrapy.Spider):
 
         if market_stats_item['new_listings'] != -1:
             yield market_stats_item
-
-
-
-        city_list = list(CITY_LIST['city'])
-        print(len(city_list))
-        # 提取下一页的数据
-        for city in city_list:
-            # print(city)
-            next_url = 'https://www.zolo.ca/{}-real-estate/trends'.format(city)
-            # print(next_url)
-            print('下一个url')
-            yield scrapy.Request(next_url, callback=self.parse)
 
 
 

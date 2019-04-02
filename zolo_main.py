@@ -5,19 +5,24 @@
 @time: 2018/10/31
 """
 from scrapy import cmdline
-from Zolo import settings
+from tools import get_sql_con
 
 
 def main():
+    conn,_ = get_sql_con.get_conn(True)
+    sql_string_truncate_trend = '''
+            TRUNCATE trend
+    '''
 
     # 将trend表删除
-    cursor = settings.conn.cursor()
-    cursor.execute(settings.sql_string_truncate_trend)
-    settings.conn.commit()
+    cursor = conn.cursor()
+    cursor.execute(sql_string_truncate_trend)
+    conn.commit()
 
     cmdline.execute('scrapy crawl trends'.split(' '))
     print('------------------------------------------------------1111')
-
+    conn.close()
+    _.stop()
 
 if __name__ == '__main__':
     main()

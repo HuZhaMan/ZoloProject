@@ -5,8 +5,8 @@
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 import pymysql
-from Zolo import settings
-
+# from Zolo import settings
+from tools import get_sql_con
 
 class ZoloPipeline(object):
     def process_item(self, item, spider):
@@ -14,37 +14,38 @@ class ZoloPipeline(object):
 
 
 # spider:market_stats的pipeline mysql的
-class MarketStatsPipeline(object):
-    def __init__(self):
-        self.connect = pymysql.connect(
-            host=settings.MYSQL_HOST,
-            port=settings.MYSQL_PORT,
-            user= settings.MYSQL_USER,
-            passwd=settings.MYSQL_PASSWORD,
-            db=settings.MYSQL_DBNAME,
-            charset='utf8',
-        )
-        self.cursor = self.connect.cursor()
-
-    def process_item(self,item,spider):
-        self.cursor.execute(
-            '''
-            insert into trend(new_listings,homes_sold,average_days_on_market,selling_to_listing_price_ratio,city) values(%s,%s,%s,%s,%s)
-            ''',[item['new_listings'],item['homes_sold'],item['average_days_on_market'],item['selling_to_listing_price_ratio']
-                ,item['city']
-                 ]
-        )
-        self.connect.commit()
-        return item
+# class MarketStatsPipeline(object):
+#     def __init__(self):
+#         self.connect = pymysql.connect(
+#             host=settings.MYSQL_HOST,
+#             port=settings.MYSQL_PORT,
+#             user= settings.MYSQL_USER,
+#             passwd=settings.MYSQL_PASSWORD,
+#             db=settings.MYSQL_DBNAME,
+#             charset='utf8',
+#         )
+#         self.cursor = self.connect.cursor()
+#
+#     def process_item(self,item,spider):
+#         self.cursor.execute(
+#             '''
+#             insert into trend(new_listings,homes_sold,average_days_on_market,selling_to_listing_price_ratio,city) values(%s,%s,%s,%s,%s)
+#             ''',[item['new_listings'],item['homes_sold'],item['average_days_on_market'],item['selling_to_listing_price_ratio']
+#                 ,item['city']
+#                  ]
+#         )
+#         self.connect.commit()
+#         return item
 
 
 # postgresql
 class MarketStatsPipeline1(object):
+    conn,server = get_sql_con.get_conn(True)
 
     def process_item(self,item, spider):
         import time
         time.sleep(1)
-        conn = settings.conn
+        conn = self.conn
 
         insert_query = '''
                 insert into trend(
@@ -68,15 +69,15 @@ class MarketStatsPipeline1(object):
         :param spider:
         :return: None
         '''
-        conn = settings.conn
+        conn = self.conn
         cursor = conn.cursor()
         # 向estate_expect_deal_price_params_data_test 插入基本的数据
         # 执行基本的插入
-        cursor.execute(settings.estate_expect_deal_price_params_data_test_insert_base)
+        cursor.execute(self.estate_expect_deal_price_params_data_test_insert_base)
         conn.commit()
         # 插入省份数据
         province_code_list = []
-        cursor.execute(settings.get_province_code)
+        cursor.execute(self.get_province_code)
         for province_code in cursor.fetchall():
             # print(province_code[0])
             province_code_list.append(province_code[0])
@@ -129,7 +130,7 @@ class MarketStatsPipeline1(object):
 
 
         # 向estate_expect_deal_price_params_data_test 插入省份和国家的平均数据
-        settings.server.stop()
+        self.server.stop()
         print('------------------------------------------------------finish')
 
 

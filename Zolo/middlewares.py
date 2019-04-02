@@ -58,6 +58,10 @@ class ZoloSpiderMiddleware(object):
         spider.logger.info('Spider opened: %s' % spider.name)
 
 
+
+
+
+
 class ZoloDownloaderMiddleware(object):
     # Not all methods need to be defined. If a method is not defined,
     # scrapy acts as if the downloader middleware does not modify the
@@ -134,3 +138,5 @@ class RandomUserAgentMiddleware(object):
 #     def process_request(self,request,spider):
 #         get_ip = GetIP()
 #         request.meta["proxy"] = get_ip.get_random_ip()
+
+
