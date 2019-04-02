@@ -42,6 +42,8 @@ class MarketStatsPipeline(object):
 class MarketStatsPipeline1(object):
 
     def process_item(self,item, spider):
+        import time
+        # time.sleep(0.5)
         conn = settings.conn
 
         insert_query = '''
@@ -83,7 +85,7 @@ class MarketStatsPipeline1(object):
         for code in province_code_set:
             # print(code)
             insert_province_sql = '''
-            INSERT INTO estate_expect_deal_price_params_data_test("provinceCode","provinceSpLp","listingCount","soldCount",dom,"createdDate")
+            INSERT INTO estate_expect_deal_price_params_data_test("provinceCode","provinceSpLp","listingCount","soldCount",dom,"createdDate","floatingValue")
             (
             select
             '{0}',
@@ -91,7 +93,8 @@ class MarketStatsPipeline1(object):
             0,
             sum("soldCount") AS "soldCount",
             cast(AVG(CAST(dom AS FLOAT)) AS decimal(10,0)) AS dom,
-            date(now())
+            date(now()),
+            2
 
 
             FROM estate_expect_deal_price_params_data_test

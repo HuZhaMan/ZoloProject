@@ -62,6 +62,8 @@ class TrendsSpider(scrapy.Spider):
         # selling_to_listing_price_ratio_expression_method = re.search(r'%',selling_to_listing_price_ratio).group()
 
 
+
+
         # 获取Rankings
         # ranking = response.xpath("//h2[contains(text(),'Rankings')]/..")
         # if ranking:
@@ -91,7 +93,10 @@ class TrendsSpider(scrapy.Spider):
         market_stats_item['city'] = ' '.join(list(map(realize_capitalize,city.split('-'))))
 
         market_stats_item['selling_to_listing_price_ratio'] = int(selling_to_listing_price_ratio_value)/100
-        yield market_stats_item
+
+
+        if market_stats_item['new_listings'] != -1:
+            yield market_stats_item
 
 
 
@@ -101,7 +106,8 @@ class TrendsSpider(scrapy.Spider):
         for city in city_list:
             # print(city)
             next_url = 'https://www.zolo.ca/{}-real-estate/trends'.format(city)
-            print(next_url)
+            # print(next_url)
+            print('下一个url')
             yield scrapy.Request(next_url, callback=self.parse)
 
 

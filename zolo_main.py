@@ -1,7 +1,7 @@
 # -*- coding:utf-8 _*-  
 """ 
 @author:Administrator
-@file: main.py
+@file: zolo_main.py
 @time: 2018/10/31
 """
 from scrapy import cmdline
