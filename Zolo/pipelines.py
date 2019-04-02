@@ -43,7 +43,7 @@ class MarketStatsPipeline1(object):
 
     def process_item(self,item, spider):
         import time
-        # time.sleep(0.5)
+        time.sleep(1)
         conn = settings.conn
 
         insert_query = '''
