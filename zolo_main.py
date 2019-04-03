@@ -18,11 +18,13 @@ def main():
     cursor = conn.cursor()
     cursor.execute(sql_string_truncate_trend)
     conn.commit()
+    conn.close()
+    _.stop()
+    print('清空trend表成功')
 
     cmdline.execute('scrapy crawl trends'.split(' '))
     print('------------------------------------------------------1111')
-    conn.close()
-    _.stop()
+
 
 if __name__ == '__main__':
     main()

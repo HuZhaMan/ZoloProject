@@ -29,7 +29,7 @@ class ProcessCityList():
         data = pd.DataFrame(data, columns=['city'])
 
         # 其实url是从Toronto开始的；
-        data =data[data.city !='Toronto']
+        # data =data[data.city !='Toronto']
 
         # 这里不需要小写也可以做到
         # data['city'] = data['city'].str.lower()

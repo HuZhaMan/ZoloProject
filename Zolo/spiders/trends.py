@@ -88,7 +88,6 @@ class TrendsSpider(scrapy.Spider):
 
         market_stats_item['selling_to_listing_price_ratio'] = int(selling_to_listing_price_ratio_value)/100
 
-
         if market_stats_item['new_listings'] != -1:
             yield market_stats_item
 

@@ -5,7 +5,7 @@
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 import pymysql
-# from Zolo import settings
+from Zolo import settings
 from tools import get_sql_con
 
 class ZoloPipeline(object):
@@ -73,11 +73,11 @@ class MarketStatsPipeline1(object):
         cursor = conn.cursor()
         # 向estate_expect_deal_price_params_data_test 插入基本的数据
         # 执行基本的插入
-        cursor.execute(self.estate_expect_deal_price_params_data_test_insert_base)
+        cursor.execute(settings.estate_expect_deal_price_params_data_test_insert_base)
         conn.commit()
         # 插入省份数据
         province_code_list = []
-        cursor.execute(self.get_province_code)
+        cursor.execute(settings.get_province_code)
         for province_code in cursor.fetchall():
             # print(province_code[0])
             province_code_list.append(province_code[0])
