@@ -143,7 +143,7 @@ CITY_LIST = list(pd.read_csv(city_list_file_path)['city'])
 # 向estate_expect_deal_price_params_data_test 插入基本数据
 estate_expect_deal_price_params_data_test_insert_base = '''
     INSERT INTO 
-    estate_expect_deal_price_params_data_test(city,"provinceCode","citySpLp","provinceSpLp",dom,"listingCount","soldCount","createdDate","floatingValue")
+    estate_expect_deal_price_params_data(city,"provinceCode","citySpLp","provinceSpLp",dom,"listingCount","soldCount","createdDate","floatingValue")
     (select 
     td.city as city,
     nt.province as "provinceCode",
@@ -171,7 +171,7 @@ estate_expect_deal_price_params_data_test_insert_base = '''
 # 查询出privinceCode，作为循环
 get_province_code = '''
     SELECT "provinceCode"
-    FROM estate_expect_deal_price_params_data_test
+    FROM estate_expect_deal_price_params_data
     where
     "createdDate"=date(now())
     AND city!=''

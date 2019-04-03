@@ -86,7 +86,7 @@ class MarketStatsPipeline1(object):
         for code in province_code_set:
             # print(code)
             insert_province_sql = '''
-            INSERT INTO estate_expect_deal_price_params_data_test("provinceCode","provinceSpLp","listingCount","soldCount",dom,"createdDate","floatingValue")
+            INSERT INTO estate_expect_deal_price_params_data("provinceCode","provinceSpLp","listingCount","soldCount",dom,"createdDate","floatingValue")
             (
             select
             '{0}',
@@ -98,7 +98,7 @@ class MarketStatsPipeline1(object):
             2
 
 
-            FROM estate_expect_deal_price_params_data_test
+            FROM estate_expect_deal_price_params_data
             where city !=''
             AND city IS NOT NULL
             AND "createdDate"=date(now())
@@ -110,7 +110,7 @@ class MarketStatsPipeline1(object):
 
         # 插入国家数据
         insert_country_sql = '''
-            INSERT INTO estate_expect_deal_price_params_data_test("soldCount",dom,"createdDate",country,"countrySpLp","floatingValue")
+            INSERT INTO estate_expect_deal_price_params_data("soldCount",dom,"createdDate",country,"countrySpLp","floatingValue")
             (SELECT 
             SUM("soldCount") AS "soldCount",
             CAST(AVG(dom) AS decimal(10,0)) as dom,
@@ -119,7 +119,7 @@ class MarketStatsPipeline1(object):
             CAST(AVG(CAST("provinceSpLp" AS FLOAT)) AS DECIMAL(10,2))AS "countrySpLp",
             3
 
-            FROM estate_expect_deal_price_params_data_test
+            FROM estate_expect_deal_price_params_data
             where city IS NULL
             AND "createdDate"=date(now())
             )
@@ -129,7 +129,7 @@ class MarketStatsPipeline1(object):
         # conn.close()
 
 
-        # 向estate_expect_deal_price_params_data_test 插入省份和国家的平均数据
+        # 向estate_expect_deal_price_params_data 插入省份和国家的平均数据
         self.server.stop()
         print('------------------------------------------------------finish')
 
