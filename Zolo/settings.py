@@ -119,11 +119,11 @@ city_list_file_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__))
 
 # ssh connect database
 is_ssh = True
-ssh_host = "138.197.138.231"
+ssh_host = ""
 ssh_port = 22
-ssh_username = "root"
-ssh_password = "saninco123#@!"
-database = "saninco_realtor_db"
+ssh_username = ""
+ssh_password = ""
+database = ""
 user = "dealtap"
 password = "dealtap"
 host = "localhost"
